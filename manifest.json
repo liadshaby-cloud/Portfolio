@@ -1,0 +1,22 @@
+{
+  "name": "פורטפוליו ליעד שאבי",
+  "short_name": "ליעד שאבי",
+  "description": "פורטפוליו אישי של ליעד שאבי - סטודנט לטכנולוגיות למידה ו-UI/UX",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#FAF9F6",
+  "theme_color": "#E05A47",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
