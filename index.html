@@ -16,14 +16,908 @@
 
   <!-- PWA & Mobile Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#E05A47">
+  <meta name="theme-color" content="#4DAAA0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ליעד שאבי">
   <link rel="apple-touch-icon" href="images/icon-192.png">
+  <link rel="icon" type="image/png" href="images/icon-192.png">
 
   <!-- CSS Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <style>
+/* ==========================================================================
+   Design Tokens & Variables
+   ========================================================================== */
+:root {
+  /* Colors - Sleek Navy, Teal, Coral, Gray palette */
+  --bg-primary: #F7F7FA;      /* Very light background */
+  --bg-secondary: #E6ECF2;    /* Soft blue-grey background */
+  --text-primary: #1D2640;    /* Dark navy for headings and primary text */
+  --text-secondary: #3B4A6B;  /* Darker slate-navy for prominent body text */
+  
+  --accent: #1D2640;          /* Navy for headings & navigation */
+  --accent-secondary: #7A8CA3;/* Muted blue-grey for secondary elements */
+  --accent-light: #E6ECF2;    /* Light blue-grey background */
+  --accent-dark: #111625;     /* Darker navy hover state */
+  
+  --cta: #4DAAA0;             /* Teal for primary CTA */
+  --cta-hover: #3C8C83;       /* Darker teal for hover state */
+  
+  --border-color: rgba(29, 38, 64, 0.12); /* Subtle navy border */
+  
+  /* Layout - Soft Round Corners for a friendly feel */
+  --container-max-width: 1140px;
+  --header-height: 80px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+
+  /* Transitions */
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s ease;
+
+  /* Shadows - Smoother & softer blur */
+  --shadow-subtle: 0 8px 30px rgba(29, 38, 64, 0.03);
+  --shadow-hover: 0 16px 40px rgba(77, 170, 160, 0.2);
+}
+
+/* Custom Highlight Utility */
+.text-highlight {
+  color: var(--cta);
+}
+
+/* ==========================================================================
+   Reset & Base Styles
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Rubik', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Accessibility: Skip Link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--accent);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  z-index: 9999;
+  font-weight: 500;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus States for Keyboard Navigation */
+a:focus-visible,
+button:focus-visible,
+[role="tab"]:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ==========================================================================
+   Reusable Components & Typography
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+.section-header {
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+
+.section-subtitle {
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+}
+
+.btn-primary {
+  background-color: var(--cta);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: var(--cta-hover);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  border: 1px solid var(--text-primary);
+  background-color: transparent;
+  color: var(--text-primary);
+  margin-right: 12px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.hero-actions .btn-secondary {
+  margin-right: 0;
+}
+
+.btn-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-subtle);
+  transition: var(--transition-smooth);
+}
+
+.btn-icon:hover {
+  background-color: var(--accent);
+  color: white;
+  transform: rotate(-45deg) scale(1.05);
+}
+
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background-color: rgba(247, 247, 250, 0.85); /* Glassmorphism using new bg-primary */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(29, 38, 64, 0.08);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  transition: var(--transition-smooth);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.logo-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 8px 0;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: var(--transition-smooth);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Hamburger button */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  z-index: 1100;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-section {
+  padding-top: calc(var(--header-height) + 80px);
+  padding-bottom: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  background-color: var(--accent-light);
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.hero-lead {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 650px;
+  margin-bottom: 40px;
+}
+
+/* Hero background shapes for Visual Polish */
+.hero-bg-shapes {
+  display: none;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+}
+
+.shape-1 {
+  top: -10%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background-color: var(--accent);
+}
+
+.shape-2 {
+  bottom: 10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background-color: #5C768D; /* Secondary cool gray */
+}
+
+/* ==========================================================================
+   About Section
+   ========================================================================== */
+.about-section {
+  padding: 100px 0;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.about-text p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+.about-stats {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-start;
+}
+
+.stat-card {
+  flex: 0 1 200px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 24px 16px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  box-shadow: var(--shadow-subtle);
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Skills Section
+   ========================================================================== */
+.skills-section {
+  padding: 100px 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.skill-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 40px 32px;
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-hover);
+}
+
+.skill-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: var(--transition-smooth);
+}
+
+.skill-card:hover .skill-icon-wrapper {
+  background-color: var(--accent);
+  color: white;
+}
+
+.skill-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.skill-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Portfolio / Works Section
+   ========================================================================== */
+.portfolio-section {
+  padding: 100px 0;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Filter buttons styling */
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.filter-btn {
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 100px;
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-smooth);
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.filter-btn.active {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Portfolio grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.project-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.project-card.hidden {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.project-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background-color: var(--bg-secondary);
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-smooth);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 26, 26, 0.4);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.05);
+}
+
+.project-info {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-secondary);
+  margin-bottom: 12px;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.project-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.project-description {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Contact Section
+   ========================================================================== */
+.contact-section {
+  padding: 120px 0;
+  text-align: center;
+  background-color: #FAF2ED; /* Warm soft background tint from mockup */
+  border-top: 1px solid var(--border-color);
+}
+
+.contact-container {
+  max-width: 700px;
+}
+
+.contact-header {
+  margin-bottom: 48px;
+}
+
+.contact-lead {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-top: 16px;
+}
+
+.contact-methods {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--border-color);
+  padding: 18px 32px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+.contact-card-email {
+  background-color: rgba(77, 170, 160, 0.15);
+  border-color: rgba(77, 170, 160, 0.25);
+  color: var(--text-primary);
+}
+
+.contact-card-email:hover {
+  background-color: rgba(77, 170, 160, 0.25);
+  border-color: #4DAAA0;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.contact-card-email .contact-icon {
+  color: #4DAAA0;
+  display: flex;
+}
+
+.contact-card-phone {
+  background-color: rgba(224, 122, 95, 0.15);
+  border-color: rgba(224, 122, 95, 0.25);
+  color: var(--text-primary);
+}
+
+.contact-card-phone:hover {
+  background-color: rgba(224, 122, 95, 0.25);
+  border-color: #E07A5F;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.contact-card-phone .contact-icon {
+  color: #E07A5F;
+  display: flex;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.main-footer {
+  background-color: #1D2640;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px 0;
+  color: #FAF9F6;
+  font-size: 0.95rem;
+}
+
+.main-footer .social-link {
+  color: #7A8CA3;
+  transition: var(--transition-fast);
+}
+
+.main-footer .social-link:hover {
+  color: #4DAAA0;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.social-links {
+  display: flex;
+  gap: 24px;
+}
+
+.social-link:hover {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Animations (Intersection Observer)
+   ========================================================================== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* Medium Devices (Tablets, 992px and down) */
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small Devices (Mobile, 768px and down) */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 70px;
+  }
+  
+  .hero-section {
+    padding-top: calc(var(--header-height) + 40px);
+    padding-bottom: 60px;
+  }
+  
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  
+  .hero-lead {
+    font-size: 1.1rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Mobile menu styles */
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    height: calc(100vh - var(--header-height));
+    background-color: var(--bg-primary);
+    padding: 40px 24px;
+    border-top: 1px solid var(--border-color);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+    z-index: 1050;
+  }
+  
+  .nav-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  
+  .nav-link {
+    font-size: 1.25rem;
+  }
+  
+  /* Active menu toggled states */
+  .menu-toggle.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-toggle.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .about-stats {
+    flex-direction: column;
+  }
+
+  .about-stats .stat-card {
+    flex: 1 1 auto;
+    max-width: none;
+  }
+  
+  .contact-methods {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+</style>
 </head>
 
 <body>
@@ -41,7 +935,9 @@
 
       <!-- Mobile Menu Toggle Button -->
       <button class="menu-toggle" aria-label="פתח תפריט ניווט" aria-expanded="false" aria-controls="primary-nav">
-        <span class="hamburger"></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
 
       <!-- Navigation -->
@@ -64,15 +960,15 @@
       <div class="container hero-container">
         <p class="hero-badge animate-on-scroll">סטודנט לטכנולוגיות למידה</p>
         <h1 class="hero-title animate-on-scroll">
-          מפתח פתרונות למידה דיגיטליים <br>
+          מפתח פתרונות למידה <span class="text-highlight">דיגיטליים</span> <br>
           <span class="text-accent">ואפיון ממשקי משתמש.</span>
         </h1>
         <p class="hero-lead animate-on-scroll">
-          שלום, אני ליעד. סטודנט שנה ב' לתואר ראשון בטכנולוגיות למידה ב-HIT. מתמחה בפיתוח פתרונות למידה דיגיטליים, אפיון
-          מערכות ופיתוח פרויקטים אינטראקטיביים עם הבנה עמוקה ב-UI/UX ושימוש בכלי בינה מלאכותית.
+          אני ליעד, סטודנט שנה ב' לתואר ראשון בטכנולוגיות למידה ב-HIT. <br>
+          עוסק בפיתוח פתרונות למידה דיגיטליים, אפיון מערכות ופיתוח פרויקטים אינטראקטיביים עם הבנה ב-UI/UX ושימוש בכלי בינה מלאכותית.
         </p>
         <div class="hero-actions animate-on-scroll">
-          <a href="#portfolio" class="btn btn-primary">לצפייה בעבודות שלי</a>
+          <a href="#portfolio" class="btn btn-primary">עבודות לדוגמא</a>
           <a href="#contact" class="btn btn-secondary">בואו נדבר</a>
         </div>
       </div>
@@ -92,14 +988,13 @@
         <div class="about-grid">
           <div class="about-text animate-on-scroll">
             <p>
-              אני סטודנט שנה ב' לתואר ראשון (B.A) בטכנולוגיות למידה ב-HIT, בעל תשוקה לפיתוח פתרונות למידה דיגיטליים,
-              אפיון מערכות וחוויית משתמש (UX). אני מתמחה בבניית תהליכי למידה אינטראקטיביים המשלבים טכנולוגיה, פדגוגיה
-              ועיצוב ממשק מודרני.
+              אני סטודנט שנה ב' לתואר ראשון (B.A) בטכנולוגיות למידה ב-HIT, המתמקד בפיתוח פתרונות למידה דיגיטליים,
+              אפיון מערכות וחוויית משתמש (UX). אני מתמחה בתכנון ופיתוח תהליכי למידה אינטראקטיביים המשלבים טכנולוגיה, פדגוגיה
+              ועיצוב ממשק, במטרה ליצור חוויות למידה אפקטיביות וממוקדות משתמש.
             </p>
             <p>
-              במהלך לימודיי ופיתוח הפרויקטים שלי, רכשתי ניסיון מעשי בעבודה עם פלטפורמות וכלי פיתוח מגוונים כמו Unity
-              (בשפת C#), Storyline, Genially ומערכת Moodle, לצד שימוש מתקדם בכלי בינה מלאכותית (GenAI, Prompt
-              Engineering). אני שואף תמיד ליצור חוויות למידה שהן גם אפקטיביות וגם מהנות ונגישות ללומדים.
+              במהלך לימודיי ובמסגרת פרויקטים מעשיים, צברתי ניסיון בעבודה עם מגוון פלטפורמות וכלי פיתוח,
+              בהם Unity (<span dir="ltr">C#</span>), Storyline, Genially ו-Moodle, לצד שימוש מתקדם בכלי בינה מלאכותית.
             </p>
           </div>
           <div class="about-stats animate-on-scroll">
@@ -126,11 +1021,18 @@
         <div class="skills-grid">
           <div class="skill-card animate-on-scroll">
             <div class="skill-icon-wrapper">
-              <!-- Inline SVG for modern layout -->
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="9" y1="3" x2="9" y2="21"></line>
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <rect x="9" y="9" width="6" height="6"></rect>
+                <line x1="9" y1="1" x2="9" y2="4"></line>
+                <line x1="15" y1="1" x2="15" y2="4"></line>
+                <line x1="9" y1="20" x2="9" y2="23"></line>
+                <line x1="15" y1="20" x2="15" y2="23"></line>
+                <line x1="20" y1="9" x2="23" y2="9"></line>
+                <line x1="20" y1="15" x2="23" y2="15"></line>
+                <line x1="1" y1="9" x2="4" y2="9"></line>
+                <line x1="1" y1="15" x2="4" y2="15"></line>
               </svg>
             </div>
             <h3>בינה מלאכותית (AI)</h3>
@@ -141,10 +1043,8 @@
             <div class="skill-icon-wrapper">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                </path>
-                <path d="M2 12h20"></path>
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
               </svg>
             </div>
             <h3>טכנולוגיות למידה</h3>
@@ -155,27 +1055,24 @@
             <div class="skill-icon-wrapper">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
               </svg>
             </div>
             <h3>עיצוב וחוויית משתמש</h3>
-            <p>אפיון מערכות ועיצוב ממשקים (UI/UX) באמצעות Figma ו-Illustrator תוך מתן דגש על שמישות, היררכיה ויזואלית
-              ונגישות.</p>
+            <p>אפיון מערכות ועיצוב ממשקי משתמש (UI/UX), לצד עבודה עם מגוון כלי אפיון ועיצוב, בהם Figma ו-Illustrator.</p>
           </div>
           <div class="skill-card animate-on-scroll">
             <div class="skill-icon-wrapper">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
               </svg>
             </div>
             <h3>פיתוח ותכנות</h3>
-            <p>כתיבת קוד ופיתוח לוגיקות משחק ב-C# (בסביבת Unity), יסודות ב-Java ועבודה עם בסיסי נתונים באמצעות SQL.</p>
+            <p>ניסיון בפיתוח משחקי אנימציה אינטראקטיביים בסביבת Unity באמצעות <span dir="ltr">C#</span>, לצד עבודה עם Java ובסיסי נתונים באמצעות SQL.</p>
           </div>
         </div>
       </div>
@@ -194,7 +1091,6 @@
           <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">הכל</button>
           <button class="filter-btn" data-filter="mobile" role="tab" aria-selected="false">מובייל</button>
           <button class="filter-btn" data-filter="web" role="tab" aria-selected="false">ווב</button>
-          <button class="filter-btn" data-filter="branding" role="tab" aria-selected="false">מיתוג</button>
         </div>
 
         <!-- Projects Grid -->
@@ -216,13 +1112,12 @@
               </div>
             </div>
             <div class="project-info">
-              <span class="project-tag">לומדות דיגיטליות & Web</span>
               <h3 class="project-title"><a
                   href="https://360.articulate.com/review/content/718f3872-4d9f-47a2-988c-d3a18cc1d208/review"
                   class="project-link" target="_blank" rel="noopener noreferrer">לומדת הטיסה הראשונה שלי</a></h3>
               <p class="project-description">
-                פיתוח ואפיון לומדה אינטראקטיבית חווייתית ללימוד יסודות הטיסה. הפרויקט פותח במסגרת קורס פיתוח יחידות
-                דיגיטליות ב-Storyline, ועבר תהליך אפיון וחוויית משתמש (UX) מקיף בקורס אפיון.
+                פיתוח ואפיון לומדה אינטראקטיבית חווייתית ללימוד יסודות הטיסה עבור ילדים. 
+                הפרויקט פותח ואופיין במסגרת קורס פיתוח יחידות דיגיטליות ב-Storyline.
               </p>
             </div>
           </article>
@@ -244,12 +1139,12 @@
               </div>
             </div>
             <div class="project-info">
-              <span class="project-tag">למידה משחקית & Web</span>
               <h3 class="project-title"><a href="https://view.genially.com/69f49f9d8a191b94110ef8bf"
                   class="project-link" target="_blank" rel="noopener noreferrer">למידה זה שם המשחק</a></h3>
               <p class="project-description">
-                פיתוח יחידת לימוד אינטראקטיבית בנושא למידה משחקית (Gamification) המשלבת מנגנוני משחק, חידות ומסלול
-                התקדמות חווייתי. הפרויקט נבנה באמצעות פלטפורמת Genially במסגרת הקורס 'הוראה מתוקשבת — תיאוריה ויישום'.
+                פיתוח קורס אינטראקטיבי בנושא למידה מבוססת משחק.
+                <br>
+                פותח באמצעות Genially במסגרת הקורס הוראה מתוקשבת- תיאוריה ויישום.
               </p>
             </div>
           </article>
@@ -270,14 +1165,12 @@
               </div>
             </div>
             <div class="project-info">
-              <span class="project-tag">אפיון, UI & נגישות</span>
               <h3 class="project-title"><a
                   href="https://www.figma.com/proto/z8AJugEPy6FzD2UMXb1seu/%D7%90%D7%AA%D7%A8-%D7%A7%D7%95%D7%A4%D7%99-%D7%A7%D7%9C%D7%99%D7%A7---%D7%A9%D7%99%D7%A8%D7%94-%D7%96%D7%A7%D7%94%D7%99%D7%99%D7%9D-%D7%91%D7%99%D7%95%D7%A8%D7%A7%D7%95%D7%91--%D7%91%D7%A8-%D7%9B%D7%94%D7%9F-%D7%95%D7%9C%D7%99%D7%A2%D7%93-%D7%A9%D7%90%D7%91%D7%99?node-id=1217-2465&starting-point-node-id=1217%3A2465&t=mtmF3NvAncsgPq4k-1"
-                  class="project-link" target="_blank" rel="noopener noreferrer">CopyClick — עיצוב אתר מיקרו-קופי</a>
+                  class="project-link" target="_blank" rel="noopener noreferrer">CopyClick - עיצוב אתר מיקרו-קופי</a>
               </h3>
               <p class="project-description">
-                אתר אינטרנט מעוצב ומתוכנן ב-Figma, אשר נוצר כחלק משילוב של קורסי אפיון (UX), עיצוב ממשק משתמש (UI)
-                ונגישות דיגיטלית מתקדמת, תוך יצירת חוויית משתמש מותאמת וקריאה.
+                פרוטוטייפ אינטראקטיבי שעוצב באמצעות Figma, אשר פותח במסגרת קורסי אפיון חוויית משתמש (UX), עיצוב ממשק משתמש (UI) והנגשת אתרים.
               </p>
             </div>
           </article>
@@ -298,10 +1191,9 @@
               </div>
             </div>
             <div class="project-info">
-              <span class="project-tag">עיצוב ממשקים & Mobile</span>
               <h3 class="project-title"><a
                   href="https://www.figma.com/proto/uub0LCagXPtCU7RZuBYQiJ/onboarding?node-id=770-5658&starting-point-node-id=770%3A5624&t=wa0NONko9mRB6pWZ-1"
-                  class="project-link" target="_blank" rel="noopener noreferrer">מתחברים — אפליקציית מובייל</a></h3>
+                  class="project-link" target="_blank" rel="noopener noreferrer">מתחברים - אפליקציית מובייל</a></h3>
               <p class="project-description">
                 עיצוב ואפיון ממשק משתמש (UI/UX) לאפליקציית "מתחברים", אשר עוצבה במסגרת קורס עיצוב גרפי לממשקים
                 אינטראקטיביים עם התמקדות בתהליך Onboarding אינטואיטיבי ומזמין.
@@ -326,12 +1218,10 @@
               </div>
             </div>
             <div class="project-info">
-              <span class="project-tag">אפיון & סביבות למידה</span>
               <h3 class="project-title"><a href="docs/yom_bashuk_spec.pdf" class="project-link" target="_blank"
-                  rel="noopener noreferrer">יום בשוק — מסמך אפיון משחק</a></h3>
+                  rel="noopener noreferrer">יום בשוק - מסמך אפיון משחק</a></h3>
               <p class="project-description">
-                מסמך אפיון (GDD) מקיף למשחק הלימודי האינטראקטיבי 'יום בשוק', אשר נוצר במסגרת קורס סביבות לימוד
-                אינטראקטיביות. האפיון כולל ניתוח פדגוגי, תיאור מנגנוני המשחקיות, סטוריבורד מלא ומענה למקרי קצה.
+                אפיון מקיף למשחק לימודי אינטראקטיבי, הכולל תכנון חוויית משתמש ומכניקות משחק. נוצר במסגרת הקורס "סביבות למידה אינטראקטיביות".
               </p>
             </div>
           </article>
@@ -348,13 +1238,11 @@
         <div class="contact-header animate-on-scroll">
           <span class="section-subtitle">בואו נשתף פעולה</span>
           <h2 class="section-title">מוכנים להתחיל את הפרויקט הבא?</h2>
-          <p class="contact-lead">
-            צרו איתי קשר לשיחת היכרות, ייעוץ עיצובי או סתם כדי להגיד שלום. אני תמיד פתוח להזדמנויות חדשות ומעניינות.
-          </p>
+
         </div>
 
         <div class="contact-methods animate-on-scroll">
-          <a href="mailto:liadshaby@gmail.com" class="contact-card" aria-label="שלח אימייל אל liadshaby@gmail.com">
+          <a href="mailto:liadshaby@gmail.com" class="contact-card contact-card-email" aria-label="שלח אימייל אל liadshaby@gmail.com">
             <div class="contact-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -364,7 +1252,7 @@
             </div>
             <span class="contact-value">liadshaby@gmail.com</span>
           </a>
-          <a href="tel:+972522279996" class="contact-card" aria-label="התקשר אל 052-2279996">
+          <a href="tel:+972522279996" class="contact-card contact-card-phone" aria-label="התקשר אל 052-2279996">
             <div class="contact-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -384,18 +1272,155 @@
   <!-- Footer -->
   <footer class="main-footer">
     <div class="container footer-container">
-      <p class="footer-copy">© 2026 ליעד שאבי. כל הזכויות שמורות.</p>
-
-      <div class="social-links">
-        <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
-        <a href="#" class="social-link" aria-label="Dribbble">Dribbble</a>
-        <a href="#" class="social-link" aria-label="GitHub">GitHub</a>
-      </div>
+      <p class="footer-copy" style="width: 100%; text-align: center; margin: 0;">פורטפוליו - ליעד שאבי</p>
     </div>
   </footer>
 
   <!-- JS Scripts -->
-  <script src="script.js"></script>
+  <script>
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then((reg) => console.log('Service Worker registered successfully:', reg.scope))
+      .catch((err) => console.error('Service Worker registration failed:', err));
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  // ==========================================================================
+  // Mobile Menu Toggle with Hardware Back-Button Logic
+  // ==========================================================================
+  const menuToggle = document.querySelector('.menu-toggle');
+  const primaryNav = document.getElementById('primary-nav');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  if (menuToggle && primaryNav) {
+    const openMenu = () => {
+      menuToggle.setAttribute('aria-expanded', 'true');
+      menuToggle.classList.add('open');
+      primaryNav.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Push state to history for back-button handling
+      history.pushState({ menuOpen: true }, '');
+    };
+
+    const closeMenu = () => {
+      if (!primaryNav.classList.contains('open')) return;
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.classList.remove('open');
+      primaryNav.classList.remove('open');
+      document.body.style.overflow = '';
+      
+      // If we closed the menu manually, remove the history entry
+      if (history.state && history.state.menuOpen) {
+        history.back();
+      }
+    };
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = primaryNav.classList.contains('open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // Close menu when a link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Listen for back button press
+    window.addEventListener('popstate', (event) => {
+      const isCurrentlyOpen = primaryNav.classList.contains('open');
+      // If menu is open, close it (the popstate has already popped the state)
+      if (isCurrentlyOpen) {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.classList.remove('open');
+        primaryNav.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  // ==========================================================================
+  // Scroll Animations (Intersection Observer)
+  // ==========================================================================
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+  const observerOptions = {
+    root: null, // viewport
+    threshold: 0.1, // trigger when 10% of element is visible
+    rootMargin: '0px 0px -50px 0px' // offset slightly
+  };
+
+  const scrollObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // stop observing once visible
+      }
+    });
+  }, observerOptions);
+
+  animatedElements.forEach(element => {
+    scrollObserver.observe(element);
+  });
+
+  // ==========================================================================
+  // Portfolio Filtering Logic
+  // ==========================================================================
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filterValue = button.getAttribute('data-filter');
+
+      // Update active button classes
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      button.classList.add('active');
+      button.setAttribute('aria-selected', 'true');
+
+      // Filter project cards
+      projectCards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+
+        if (filterValue === 'all' || cardCategory === filterValue) {
+          card.classList.remove('hidden');
+          // Re-trigger scroll animation check in case item is visible
+          setTimeout(() => {
+            card.classList.add('visible');
+          }, 50);
+        } else {
+          card.classList.add('hidden');
+          card.classList.remove('visible');
+        }
+      });
+    });
+  });
+
+  // ==========================================================================
+  // Accessibility & Keyboard navigation details
+  // ==========================================================================
+  // Close menu on ESC key press
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && primaryNav.classList.contains('open')) {
+      menuToggle.click();
+      menuToggle.focus();
+    }
+  });
+});
+
+</script>
 </body>
 
 </html>

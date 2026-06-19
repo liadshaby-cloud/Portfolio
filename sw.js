@@ -1,15 +1,12 @@
-const CACHE_NAME = 'liad-shaby-portfolio-v1';
+const CACHE_NAME = 'liad-shaby-portfolio-v33';
 const ASSETS_TO_CACHE = [
   'index.html',
-  'style.css',
-  'script.js',
   'manifest.json',
+  'favicon.ico',
   'images/project1.png',
-  'images/project2.png',
   'images/project_genially.png',
   'images/project_figma.png',
   'images/project_onboarding.png',
-  'images/project_fintech.png',
   'images/project_yom_bashuk.jpg',
   'images/icon-192.png',
   'images/icon-512.png'

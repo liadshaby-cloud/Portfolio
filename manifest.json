@@ -4,8 +4,8 @@
   "description": "פורטפוליו אישי של ליעד שאבי - סטודנט לטכנולוגיות למידה ו-UI/UX",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#FAF9F6",
-  "theme_color": "#E05A47",
+  "background_color": "#F7F7FA",
+  "theme_color": "#4DAAA0",
   "orientation": "portrait-primary",
   "icons": [
     {
