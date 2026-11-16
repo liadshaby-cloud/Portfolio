@@ -1416,5 +1416,86 @@ body.media-dialog-open { overflow: hidden; }
 }
 
 @media (max-width: 600px) {
-  .project-card[data-index="1"] .project-btn { padding: 6px 4px; font-size: 0.8rem; }
+  .container { padding-inline: 16px; }
+  .hero { padding: 40px 0 88px; }
+  .hero-title { font-size: clamp(2rem, 8.5vw, 2.8rem); }
+  .hero-curve { height: 52px; }
+  .section-title { font-size: clamp(1.55rem, 6vw, 2rem); }
+  .toolbox-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-title { font-size: clamp(1.5rem, 6vw, 2.1rem); }
+  .footer-email { font-size: clamp(1rem, 4.5vw, 1.35rem); }
+
+  .projects-section .section-subtitle { display: none; }
+  .carousel-wrapper { padding-bottom: 52px; }
+  .projects-track { height: auto; display: block; }
+  .project-card:not(.pos-center) { display: none; }
+
+  .project-card.pos-center {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    transform: none;
+  }
+
+  .project-card.pos-center .project-banner {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .project-card.pos-center .project-desc,
+  .project-card.pos-center .project-actions { max-height: none; }
+
+  .project-card[data-index="1"] .project-actions .project-btn {
+    min-height: 44px;
+    padding: 8px 6px;
+    font-size: 0.9rem;
+  }
+
+  .carousel-wrapper .carousel-arrow {
+    top: auto;
+    bottom: 0;
+    width: 44px;
+    transform: none;
+  }
+
+  .arrow-right { right: 0; }
+  .arrow-left { left: 0; }
+
+  .carousel-dots {
+    position: relative;
+    width: fit-content;
+    gap: 0;
+    margin: -44px auto 0;
+    min-height: 44px;
+  }
+
+  .dot,
+  .dot.active,
+  .dot:hover {
+    width: 34px;
+    height: 44px;
+    background: transparent;
+    transform: none;
+  }
+
+  .dot::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: auto;
+    border-radius: 50%;
+    background: #DCD2FA;
+  }
+
+  .dot.active::before { background: #9A7DF3; }
+  body.a11y-high-contrast .dot::before { background: #FFFF00; }
+  body.a11y-high-contrast .dot.active::before { background: #00FFFF; }
+
+  .a11y-panel {
+    max-width: calc(100vw - 40px);
+    max-height: calc(100dvh - 100px);
+    overflow-y: auto;
+  }
 }
