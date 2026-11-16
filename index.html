@@ -1,1415 +1,422 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>פורטפוליו | עיצוב מוצר ו-UI/UX</title>
-  <meta name="description"
-    content="פורטפוליו מעצב מוצר ו-UI/UX מקצועי, המציג פרויקטים מתקדמים בעיצוב אפליקציות, אתרי אינטרנט ומערכות דיגיטליות.">
-
-  <!-- Google Fonts - Rubik for modern Hebrew/English typography -->
+  <meta name="theme-color" content="#0A1045">
+  <title>ליעד שאבי | מעצב ממשקים. מפתח למידה.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-    rel="stylesheet">
-
-  <!-- PWA & Mobile Meta Tags -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#4DAAA0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="ליעד שאבי">
-  <link rel="apple-touch-icon" href="images/icon-192.png">
-  <link rel="icon" type="image/png" href="images/icon-192.png">
-
-  <!-- CSS Stylesheet -->
-  <style>
-/* ==========================================================================
-   Design Tokens & Variables
-   ========================================================================== */
-:root {
-  /* Colors - Sleek Navy, Teal, Coral, Gray palette */
-  --bg-primary: #F7F7FA;      /* Very light background */
-  --bg-secondary: #E6ECF2;    /* Soft blue-grey background */
-  --text-primary: #1D2640;    /* Dark navy for headings and primary text */
-  --text-secondary: #3B4A6B;  /* Darker slate-navy for prominent body text */
-  
-  --accent: #1D2640;          /* Navy for headings & navigation */
-  --accent-secondary: #7A8CA3;/* Muted blue-grey for secondary elements */
-  --accent-light: #E6ECF2;    /* Light blue-grey background */
-  --accent-dark: #111625;     /* Darker navy hover state */
-  
-  --cta: #4DAAA0;             /* Teal for primary CTA */
-  --cta-hover: #3C8C83;       /* Darker teal for hover state */
-  
-  --border-color: rgba(29, 38, 64, 0.12); /* Subtle navy border */
-  
-  /* Layout - Soft Round Corners for a friendly feel */
-  --container-max-width: 1140px;
-  --header-height: 80px;
-  --radius-sm: 12px;
-  --radius-md: 20px;
-  --radius-lg: 32px;
-
-  /* Transitions */
-  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: all 0.2s ease;
-
-  /* Shadows - Smoother & softer blur */
-  --shadow-subtle: 0 8px 30px rgba(29, 38, 64, 0.03);
-  --shadow-hover: 0 16px 40px rgba(77, 170, 160, 0.2);
-}
-
-/* Custom Highlight Utility */
-.text-highlight {
-  color: var(--cta);
-}
-
-/* ==========================================================================
-   Reset & Base Styles
-   ========================================================================== */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
-
-body {
-  font-family: 'Rubik', system-ui, -apple-system, sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: var(--transition-fast);
-}
-
-button {
-  font-family: inherit;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-/* Accessibility: Skip Link */
-.skip-link {
-  position: absolute;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--accent);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  z-index: 9999;
-  font-weight: 500;
-  transition: top 0.2s ease;
-}
-
-.skip-link:focus {
-  top: 0;
-}
-
-/* Focus States for Keyboard Navigation */
-a:focus-visible,
-button:focus-visible,
-[role="tab"]:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 4px;
-}
-
-/* ==========================================================================
-   Reusable Components & Typography
-   ========================================================================== */
-.container {
-  width: 100%;
-  max-width: var(--container-max-width);
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 24px;
-  padding-left: 24px;
-}
-
-.section-header {
-  margin-bottom: 48px;
-  max-width: 600px;
-}
-
-.section-subtitle {
-  font-size: 1.15rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent);
-  font-weight: 600;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.section-title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 28px;
-  font-weight: 500;
-  font-size: 1rem;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-smooth);
-}
-
-.btn-primary {
-  background-color: var(--cta);
-  color: #FFFFFF;
-}
-
-.btn-primary:hover {
-  background-color: var(--cta-hover);
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  border: 1px solid var(--text-primary);
-  background-color: transparent;
-  color: var(--text-primary);
-  margin-right: 12px;
-}
-
-.btn-secondary:hover {
-  background-color: var(--bg-secondary);
-  border-color: var(--text-primary);
-  transform: translateY(-2px);
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.hero-actions .btn-secondary {
-  margin-right: 0;
-}
-
-.btn-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-subtle);
-  transition: var(--transition-smooth);
-}
-
-.btn-icon:hover {
-  background-color: var(--accent);
-  color: white;
-  transform: rotate(-45deg) scale(1.05);
-}
-
-/* ==========================================================================
-   Header & Navigation
-   ========================================================================== */
-.main-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--header-height);
-  background-color: rgba(247, 247, 250, 0.85); /* Glassmorphism using new bg-primary */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(29, 38, 64, 0.08);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  transition: var(--transition-smooth);
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--text-primary);
-}
-
-.logo-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent);
-  border-radius: 50%;
-}
-
-.nav-list {
-  display: flex;
-  list-style: none;
-  gap: 32px;
-}
-
-.nav-link {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  padding: 8px 0;
-  position: relative;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--accent);
-  transition: var(--transition-smooth);
-}
-
-.nav-link:hover {
-  color: var(--text-primary);
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* Hamburger button */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
-  z-index: 1100;
-}
-
-.menu-toggle span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: var(--text-primary);
-  transition: var(--transition-smooth);
-}
-
-/* ==========================================================================
-   Hero Section
-   ========================================================================== */
-.hero-section {
-  padding-top: calc(var(--header-height) + 80px);
-  padding-bottom: 100px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-container {
-  position: relative;
-  z-index: 2;
-}
-
-.hero-badge {
-  display: inline-block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent);
-  background-color: var(--accent-light);
-  padding: 6px 16px;
-  border-radius: 100px;
-  margin-bottom: 24px;
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
-}
-
-.text-accent {
-  color: var(--accent);
-}
-
-.hero-lead {
-  font-size: 1.25rem;
-  color: var(--text-secondary);
-  max-width: 650px;
-  margin-bottom: 40px;
-}
-
-/* Hero background shapes for Visual Polish */
-.hero-bg-shapes {
-  display: none;
-}
-
-.shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.15;
-}
-
-.shape-1 {
-  top: -10%;
-  left: -10%;
-  width: 400px;
-  height: 400px;
-  background-color: var(--accent);
-}
-
-.shape-2 {
-  bottom: 10%;
-  right: -5%;
-  width: 500px;
-  height: 500px;
-  background-color: #5C768D; /* Secondary cool gray */
-}
-
-/* ==========================================================================
-   About Section
-   ========================================================================== */
-.about-section {
-  padding: 100px 0;
-  background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 64px;
-  align-items: center;
-}
-
-.about-text p {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
-
-.about-text p:last-child {
-  margin-bottom: 0;
-}
-
-.about-stats {
-  display: flex;
-  gap: 24px;
-  justify-content: flex-start;
-}
-
-.stat-card {
-  flex: 0 1 200px;
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  padding: 24px 16px;
-  border-radius: var(--radius-md);
-  text-align: center;
-  box-shadow: var(--shadow-subtle);
-}
-
-.stat-number {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-}
-
-/* ==========================================================================
-   Skills Section
-   ========================================================================== */
-.skills-section {
-  padding: 100px 0;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-}
-
-.skill-card {
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  padding: 40px 32px;
-  border-radius: var(--radius-md);
-  transition: var(--transition-smooth);
-}
-
-.skill-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent);
-  box-shadow: var(--shadow-hover);
-}
-
-.skill-icon-wrapper {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background-color: var(--bg-secondary);
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  transition: var(--transition-smooth);
-}
-
-.skill-card:hover .skill-icon-wrapper {
-  background-color: var(--accent);
-  color: white;
-}
-
-.skill-card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.skill-card p {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* ==========================================================================
-   Portfolio / Works Section
-   ========================================================================== */
-.portfolio-section {
-  padding: 100px 0;
-  background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-}
-
-/* Filter buttons styling */
-.filter-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 48px;
-}
-
-.filter-btn {
-  padding: 10px 24px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  border-radius: 100px;
-  background-color: var(--bg-primary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-  transition: var(--transition-smooth);
-}
-
-.filter-btn:hover {
-  color: var(--text-primary);
-  border-color: var(--text-primary);
-}
-
-.filter-btn.active {
-  background-color: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
-
-/* Portfolio grid */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-}
-
-.project-card {
-  background-color: var(--bg-primary);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  transition: var(--transition-smooth);
-  display: flex;
-  flex-direction: column;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.project-card.hidden {
-  opacity: 0;
-  transform: scale(0.9);
-  pointer-events: none;
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  border: none;
-}
-
-.project-image-wrapper {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16 / 10;
-  background-color: var(--bg-secondary);
-}
-
-.project-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition-smooth);
-}
-
-.project-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(26, 26, 26, 0.4);
-  backdrop-filter: blur(4px);
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition-smooth);
-}
-
-.project-card:hover .project-overlay {
-  opacity: 1;
-}
-
-.project-card:hover .project-image {
-  transform: scale(1.05);
-}
-
-.project-info {
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.project-tag {
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent-secondary);
-  margin-bottom: 12px;
-}
-
-.project-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.project-link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.project-description {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-/* ==========================================================================
-   Contact Section
-   ========================================================================== */
-.contact-section {
-  padding: 120px 0;
-  text-align: center;
-  background-color: #FAF2ED; /* Warm soft background tint from mockup */
-  border-top: 1px solid var(--border-color);
-}
-
-.contact-container {
-  max-width: 700px;
-}
-
-.contact-header {
-  margin-bottom: 48px;
-}
-
-.contact-lead {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  margin-top: 16px;
-}
-
-.contact-methods {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.contact-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border: 1px solid var(--border-color);
-  padding: 18px 32px;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  transition: var(--transition-smooth);
-}
-
-.contact-card-email {
-  background-color: rgba(77, 170, 160, 0.15);
-  border-color: rgba(77, 170, 160, 0.25);
-  color: var(--text-primary);
-}
-
-.contact-card-email:hover {
-  background-color: rgba(77, 170, 160, 0.25);
-  border-color: #4DAAA0;
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
-}
-
-.contact-card-email .contact-icon {
-  color: #4DAAA0;
-  display: flex;
-}
-
-.contact-card-phone {
-  background-color: rgba(224, 122, 95, 0.15);
-  border-color: rgba(224, 122, 95, 0.25);
-  color: var(--text-primary);
-}
-
-.contact-card-phone:hover {
-  background-color: rgba(224, 122, 95, 0.25);
-  border-color: #E07A5F;
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
-}
-
-.contact-card-phone .contact-icon {
-  color: #E07A5F;
-  display: flex;
-}
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-.main-footer {
-  background-color: #1D2640;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 40px 0;
-  color: #FAF9F6;
-  font-size: 0.95rem;
-}
-
-.main-footer .social-link {
-  color: #7A8CA3;
-  transition: var(--transition-fast);
-}
-
-.main-footer .social-link:hover {
-  color: #4DAAA0;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.social-links {
-  display: flex;
-  gap: 24px;
-}
-
-.social-link:hover {
-  color: var(--accent);
-}
-
-/* ==========================================================================
-   Animations (Intersection Observer)
-   ========================================================================== */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.animate-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ==========================================================================
-   Responsive Breakpoints
-   ========================================================================== */
-
-/* Medium Devices (Tablets, 992px and down) */
-@media (max-width: 992px) {
-  .hero-title {
-    font-size: 2.75rem;
-  }
-  
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-
-  .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Small Devices (Mobile, 768px and down) */
-@media (max-width: 768px) {
-  :root {
-    --header-height: 70px;
-  }
-  
-  .hero-section {
-    padding-top: calc(var(--header-height) + 40px);
-    padding-bottom: 60px;
-  }
-  
-  .hero-title {
-    font-size: 2.25rem;
-  }
-  
-  .hero-lead {
-    font-size: 1.1rem;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-  }
-
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  /* Mobile menu styles */
-  .menu-toggle {
-    display: flex;
-  }
-  
-  .nav-menu {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    height: calc(100vh - var(--header-height));
-    background-color: var(--bg-primary);
-    padding: 40px 24px;
-    border-top: 1px solid var(--border-color);
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: var(--transition-smooth);
-    z-index: 1050;
-  }
-  
-  .nav-menu.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
-  }
-  
-  .nav-list {
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-  }
-  
-  .nav-link {
-    font-size: 1.25rem;
-  }
-  
-  /* Active menu toggled states */
-  .menu-toggle.open span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-  }
-  
-  .menu-toggle.open span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .menu-toggle.open span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
-
-  .about-stats {
-    flex-direction: column;
-  }
-
-  .about-stats .stat-card {
-    flex: 1 1 auto;
-    max-width: none;
-  }
-  
-  .contact-methods {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .footer-container {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-</style>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261116-10">
 </head>
-
 <body>
 
-  <!-- Skip to content link for accessibility -->
-  <a href="#main-content" class="skip-link">דלג לתוכן המרכזי</a>
+  <!-- קישורי דילוג לנגישות (תקן ישראלי ת"י 5568) -->
+  <nav class="skip-links" aria-label="קישורי דילוג">
+    <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+    <a href="#projects-section" class="skip-link">דלג לפרויקטים נבחרים</a>
+    <a href="#footer-contact" class="skip-link">דלג ליצירת קשר</a>
+  </nav>
 
-  <!-- Header -->
-  <header class="main-header">
-    <div class="container header-container">
-      <a href="#" class="logo" aria-label="דף הבית">
-        <span class="logo-dot"></span>
-        <span class="logo-text">ליעד שאבי</span>
+  <!-- Hero Section -->
+  <header class="hero" role="banner">
+    <div class="container hero-content">
+      <p class="hero-name">ליעד שאבי</p>
+      <h1 class="hero-title">
+        מעצב <span class="highlight-purple">ממשקים</span>.<br>
+        מפתח למידה.
+      </h1>
+      <p class="hero-subtitle">
+        סטודנט בשנה ג׳ לתואר ראשון ובשנה א׳ לתואר שני בטכנולוגיות למידה.<br>
+        מחבר בין עיצוב, טכנולוגיה ולמידה.
+      </p>
+      <a href="#projects-section" class="hero-cta-btn">
+        <span>לצפייה בפרויקטים</span>
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <polyline points="5 8 10 13 15 8"></polyline>
+        </svg>
       </a>
-
-      <!-- Mobile Menu Toggle Button -->
-      <button class="menu-toggle" aria-label="פתח תפריט ניווט" aria-expanded="false" aria-controls="primary-nav">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <!-- Navigation -->
-      <nav id="primary-nav" class="nav-menu">
-        <ul class="nav-list">
-          <li><a href="#about" class="nav-link">אודות</a></li>
-          <li><a href="#skills" class="nav-link">כישורים</a></li>
-          <li><a href="#portfolio" class="nav-link">עבודות</a></li>
-          <li><a href="#contact" class="nav-link">צור קשר</a></li>
-        </ul>
-      </nav>
     </div>
+    <svg class="hero-curve" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path class="hero-curve-path" d="M0,15 Q780,105 1440,58 L1440,90 L0,90 Z" fill="#FAFAFE"></path>
+    </svg>
   </header>
 
-  <!-- Main Content Area -->
-  <main id="main-content">
+  <main id="main-content" class="main-content" tabindex="-1">
+    <div class="container">
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="container hero-container">
-        <p class="hero-badge animate-on-scroll">סטודנט לטכנולוגיות למידה</p>
-        <h1 class="hero-title animate-on-scroll">
-          מפתח פתרונות למידה <span class="text-highlight">דיגיטליים</span> <br>
-          <span class="text-accent">ואפיון ממשקי משתמש.</span>
-        </h1>
-        <p class="hero-lead animate-on-scroll">
-          אני ליעד, סטודנט שנה ב' לתואר ראשון בטכנולוגיות למידה ב-HIT. <br>
-          עוסק בפיתוח פתרונות למידה דיגיטליים, אפיון מערכות ופיתוח פרויקטים אינטראקטיביים עם הבנה ב-UI/UX ושימוש בכלי בינה מלאכותית.
-        </p>
-        <div class="hero-actions animate-on-scroll">
-          <a href="#portfolio" class="btn btn-primary">עבודות לדוגמא</a>
-          <a href="#contact" class="btn btn-secondary">בואו נדבר</a>
-        </div>
-      </div>
-      <div class="hero-bg-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-      </div>
-    </section>
+      <!-- Toolbox Section -->
+      <section class="section toolbox-section" aria-labelledby="toolbox-heading">
+        <h2 id="toolbox-heading" class="section-title">ארגז הכלים שלי</h2>
+        <ul class="toolbox-grid" role="list">
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-      <div class="container">
-        <div class="section-header animate-on-scroll">
-          <span class="section-subtitle">מי אני</span>
-          <h2 class="section-title">קצת עלי</h2>
-        </div>
-        <div class="about-grid">
-          <div class="about-text animate-on-scroll">
-            <p>
-              אני סטודנט שנה ב' לתואר ראשון (B.A) בטכנולוגיות למידה ב-HIT, המתמקד בפיתוח פתרונות למידה דיגיטליים,
-              אפיון מערכות וחוויית משתמש (UX). אני מתמחה בתכנון ופיתוח תהליכי למידה אינטראקטיביים המשלבים טכנולוגיה, פדגוגיה
-              ועיצוב ממשק, במטרה ליצור חוויות למידה אפקטיביות וממוקדות משתמש.
+          <!-- Item 1 (Rightmost in RTL): אפיון ועיצוב -->
+          <li class="tool-card">
+            <div class="tool-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <line x1="12" y1="12" x2="52" y2="12" />
+                <circle class="svg-fill-bg" cx="12" cy="12" r="3.5" fill="#FAFAFE" />
+                <circle class="svg-fill-bg" cx="52" cy="12" r="3.5" fill="#FAFAFE" />
+                <rect class="svg-fill-bg" x="28.5" y="8.5" width="7" height="7" rx="1" fill="#FAFAFE" />
+                <path d="M14 28 C14 17, 50 17, 50 28" />
+                <circle class="svg-fill-bg" cx="14" cy="30" r="3.5" fill="#FAFAFE" />
+                <circle class="svg-fill-bg" cx="50" cy="30" r="3.5" fill="#FAFAFE" />
+                <path d="M32 23 L22 41 L26 49 L38 49 L42 41 Z" />
+                <line x1="32" y1="23" x2="32" y2="36" />
+                <circle class="svg-fill-bg" cx="32" cy="38.5" r="2.2" fill="#FAFAFE" />
+                <path d="M24 49 L40 49 L42 55 L22 55 Z" />
+              </svg>
+            </div>
+            <h3 class="tool-title">אפיון ועיצוב</h3>
+            <p class="tool-sub" lang="en" dir="ltr">UI/UX · Figma</p>
+          </li>
+
+          <!-- Item 2: פיתוח למידה -->
+          <li class="tool-card">
+            <div class="tool-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <polygon points="32 14 8 26 32 38 56 26 32 14" />
+                <path d="M17 31 V44 C17 48.5 24 52 32 52 C40 52 47 48.5 47 44 V31" />
+                <path d="M52 28 V44" />
+                <path d="M52 44 C50 46 50 50 52 51 C54 50 54 46 52 44 Z" />
+              </svg>
+            </div>
+            <h3 class="tool-title">פיתוח למידה</h3>
+            <p class="tool-sub" lang="en" dir="ltr">Storyline · Genially</p>
+          </li>
+
+          <!-- Item 3: בינה מלאכותית -->
+          <li class="tool-card">
+            <div class="tool-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <rect x="16" y="16" width="32" height="32" rx="5" />
+                <line x1="24" y1="9" x2="24" y2="16" />
+                <line x1="32" y1="9" x2="32" y2="16" />
+                <line x1="40" y1="9" x2="40" y2="16" />
+                <line x1="24" y1="48" x2="24" y2="55" />
+                <line x1="32" y1="48" x2="32" y2="55" />
+                <line x1="40" y1="48" x2="40" y2="55" />
+                <line x1="9" y1="24" x2="16" y2="24" />
+                <line x1="9" y1="32" x2="16" y2="32" />
+                <line x1="9" y1="40" x2="16" y2="40" />
+                <line x1="48" y1="24" x2="55" y2="24" />
+                <line x1="48" y1="32" x2="55" y2="32" />
+                <line x1="48" y1="40" x2="55" y2="40" />
+                <path d="M33 22 C33 28.5 35.5 31 42 31 C35.5 31 33 33.5 33 40 C33 33.5 30.5 31 24 31 C30.5 31 33 28.5 33 22 Z" />
+                <circle cx="25" cy="39" r="0.8" fill="currentColor" />
+                <circle cx="28" cy="41" r="0.8" fill="currentColor" />
+              </svg>
+            </div>
+            <h3 class="tool-title">בינה מלאכותית</h3>
+            <p class="tool-sub" lang="en" dir="ltr">GenAI</p>
+          </li>
+
+          <!-- Item 4 (Leftmost in RTL): וידאו ודיגיטל -->
+          <li class="tool-card">
+            <div class="tool-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <rect x="8" y="13" width="48" height="38" rx="5" />
+                <line x1="8" y1="22" x2="56" y2="22" />
+                <circle cx="14" cy="17.5" r="1" fill="currentColor" />
+                <circle cx="18.5" cy="17.5" r="1" fill="currentColor" />
+                <circle cx="23" cy="17.5" r="1" fill="currentColor" />
+                <polygon points="27 29 27 43 39 36" />
+              </svg>
+            </div>
+            <h3 class="tool-title">וידאו ודיגיטל</h3>
+            <p class="tool-sub">עריכה ויצירה</p>
+          </li>
+
+        </ul>
+      </section>
+
+      <!-- Experience Section -->
+      <section class="section experience-section" aria-labelledby="experience-heading">
+        <h2 id="experience-heading" class="section-title">נסיון תעסוקתי</h2>
+        <div class="experience-row" role="list">
+
+          <!-- Right Card: מט"ח · פרויקט 720 -->
+          <div class="exp-item exp-card" role="listitem">
+            <div class="exp-card-header">
+              <div class="exp-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 64 52" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <path d="M8 14 V42 C8 44.2 9.8 46 12 46 H48 C50.2 46 52 44.2 52 42 V18 C52 15.8 50.2 14 48 14 H28 L23 8 H12 C9.8 8 8 9.8 8 12 Z" />
+                  <path class="svg-fill-bg" d="M8 43 L14 23 H56 L50 43 C49.5 44.8 48 46 46 46 H12" fill="#EBF8F6" />
+                </svg>
+              </div>
+              <div class="exp-text">
+                <h3 class="exp-title">מט״ח · פרויקט 720</h3>
+                <p class="exp-sub">עבודה פרויקטלית</p>
+              </div>
+            </div>
+            <p class="exp-desc">
+              עיצוב ופיתוח תוצרים דיגיטליים בהתאם לצורכי הפרויקט ולמטרותיו.
             </p>
-            <p>
-              במהלך לימודיי ובמסגרת פרויקטים מעשיים, צברתי ניסיון בעבודה עם מגוון פלטפורמות וכלי פיתוח,
-              בהם Unity (<span dir="ltr">C#</span>), Storyline, Genially ו-Moodle, לצד שימוש מתקדם בכלי בינה מלאכותית.
+          </div>
+
+          <!-- Left Card: עריכת וידאו -->
+          <div class="exp-item exp-card" role="listitem">
+            <div class="exp-card-header">
+              <div class="exp-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 68 54" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                  <rect x="6" y="6" width="52" height="40" rx="5" />
+                  <line x1="6" y1="15" x2="58" y2="15" />
+                  <circle cx="12" cy="10.5" r="1" fill="currentColor" />
+                  <circle cx="16.5" cy="10.5" r="1" fill="currentColor" />
+                  <circle cx="21" cy="10.5" r="1" fill="currentColor" />
+                  <polygon points="27 21 27 33 38 27" />
+                  <line x1="11" y1="40" x2="53" y2="40" />
+                  <circle class="svg-fill-bg" cx="20" cy="40" r="2.6" fill="#EBF8F6" />
+                </svg>
+              </div>
+              <div class="exp-text">
+                <h3 class="exp-title">עריכת וידאו</h3>
+                <p class="exp-sub">עבודה עצמאית</p>
+              </div>
+            </div>
+            <p class="exp-desc">
+              עריכת סרטונים בהתאמה לצורכי הלקוח, תוך הקפדה על קצב, רצף וסגנון חזותי.
             </p>
           </div>
-          <div class="about-stats animate-on-scroll">
-            <div class="stat-card">
-              <span class="stat-number">B.A</span>
-              <span class="stat-label">טכנולוגיות למידה</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">HIT</span>
-              <span class="stat-label">המכון הטכנולוגי חולון</span>
+
+        </div>
+      </section>
+
+      <!-- Selected Projects Section -->
+      <section id="projects-section" class="section projects-section" aria-labelledby="projects-heading" aria-roledescription="קרוסלה">
+        <h2 id="projects-heading" class="section-title projects-section-title">פרויקטים נבחרים</h2>
+        <p class="section-subtitle">עברו עם הסמן מעל הפרויקטים לתצוגה מקדימה.</p>
+
+        <!-- הודעה חיה לקורא מסך בעת החלפת פרויקט -->
+        <div id="carouselStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+        <div class="carousel-wrapper">
+          <!-- Right Arrow (in RTL, positioned on the right edge) -->
+          <button type="button" class="carousel-arrow arrow-right" id="prevBtn" aria-label="לפרויקט הקודם" aria-controls="projectsTrack">
+            <svg viewBox="0 0 24 40" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <polyline points="5 6 19 20 5 34"></polyline>
+            </svg>
+          </button>
+
+          <div class="carousel-viewport">
+            <div class="projects-track" id="projectsTrack" role="group" aria-label="רשימת פרויקטים נבחרים">
+
+              <!-- Project 1 (Right Side): הטיסה הראשונה שלי -->
+              <article class="project-card side-card right-fade-card pos-right" data-index="0" tabindex="0" role="button" aria-pressed="false" aria-label="פרויקט 1 מתוך 5: הטיסה הראשונה שלי, פותח ב-Storyline">
+                <a href="https://360.articulate.com/review/content/718f3872-4d9f-47a2-988c-d3a18cc1d208/review" target="_blank" rel="noopener noreferrer" class="project-card-link" aria-label="פתיחת הלומדה הטיסה הראשונה שלי בחלון חדש"></a>
+                <div class="project-banner has-image has-video-preview">
+                  <img src="assets/first-flight-banner.png" alt="מתוך הלומדה הטיסה הראשונה שלי – דיילת ודייל מאוירים בטרמינל שדה התעופה ומאחוריהם מטוס">
+                  <video class="banner-preview-video crop-preview-edge" src="assets/storyline_elal.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+                </div>
+                <div class="card-inner right-aligned">
+                  <h3 class="project-title">הטיסה הראשונה שלי</h3>
+                  <p class="project-tool" lang="en" dir="ltr">Storyline</p>
+                </div>
+              </article>
+
+              <!-- Project 2 (Center Featured Default): יום בשוק -->
+              <article class="project-card center-card active pos-center" data-index="1" tabindex="0" role="button" aria-pressed="true" aria-label="פרויקט 2 מתוך 5 (נבחר): יום בשוק, מחולל משחקים">
+                <div class="project-banner has-image has-video-preview">
+                  <img src="assets/yom-bashuk-banner.png" alt="מתוך המשחק יום בשוק – דוכנים בשוק עם דמויות מאוירות">
+                  <video class="banner-preview-video" src="assets/game_yombashuk.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+                </div>
+                <div class="card-inner center-aligned">
+                  <h3 class="project-title">יום בשוק</h3>
+                  <p class="project-desc">מחולל משחקים</p>
+                  <div class="project-actions">
+                    <button type="button" class="project-btn btn-primary gameplay-action" data-media-dialog="gameplayDialog" aria-haspopup="dialog">סרטון מהלך משחק</button>
+                    <button type="button" class="project-btn btn-secondary" data-media-dialog="galleryDialog" aria-haspopup="dialog">גלריית תמונות</button>
+                    <a href="assets/אפיון סופי - יום בשוק.pdf" target="_blank" rel="noopener noreferrer" class="project-btn btn-secondary" aria-label="פתיחת מסמך האפיון של יום בשוק כקובץ PDF (נפתח בחלון חדש)">מסמך אפיון</a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project 3 (Left Side): למידה זה שם המשחק -->
+              <article class="project-card side-card left-fade-card pos-left" data-index="2" tabindex="0" role="button" aria-pressed="false" aria-label="פרויקט 3 מתוך 5: למידה זה שם המשחק, למידה מבוססת משחק, פותח ב-Genially">
+                <a href="https://view.genially.com/69f49f9d8a191b94110ef8bf" target="_blank" rel="noopener noreferrer" class="project-card-link" aria-label="פתיחת הפרויקט למידה זה שם המשחק בחלון חדש"></a>
+                <div class="project-banner has-image banner-genially has-video-preview">
+                  <img src="assets/project-genially.png" alt="מתוך הפרויקט למידה זה שם המשחק – מסלול למידה מבוססת משחק ב-Genially">
+                  <video class="banner-preview-video crop-preview-edge" src="assets/genially_learning.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+                </div>
+                <div class="card-inner left-aligned">
+                  <h3 class="project-title">למידה זה שם המשחק</h3>
+                  <p class="project-desc">למידה מבוססת משחק</p>
+                  <p class="project-tool" lang="en" dir="ltr">Genially</p>
+                </div>
+              </article>
+
+              <!-- Project 4 (Rotated in via Carousel): CopyClick -->
+              <article class="project-card is-hidden" data-index="3" tabindex="0" role="button" aria-pressed="false" aria-label="פרויקט 4 מתוך 5: CopyClick, עוצב ב-Figma">
+                <a href="https://www.figma.com/proto/z8AJugEPy6FzD2UMXb1seu/%D7%90%D7%AA%D7%A8-%D7%A7%D7%95%D7%A4%D7%99-%D7%A7%D7%9C%D7%99%D7%A7---%D7%A9%D7%99%D7%A8%D7%94-%D7%96%D7%A7%D7%94%D7%99%D7%99%D7%9D-%D7%91%D7%99%D7%95%D7%A8%D7%A7%D7%95%D7%91--%D7%91%D7%A8-%D7%9B%D7%94%D7%9F-%D7%95%D7%9C%D7%99%D7%A2%D7%93-%D7%A9%D7%90%D7%91%D7%99?node-id=1217-2465&starting-point-node-id=1217%3A2465&t=mtmF3NvAncsgPq4k-1" target="_blank" rel="noopener noreferrer" class="project-card-link" aria-label="פתיחת הפרויקט CopyClick ב-Figma בחלון חדש"></a>
+                <div class="project-banner has-image has-video-preview">
+                  <img src="assets/project-figma.png" alt="CopyClick – עיצוב אתר מיקרו-קופי ב-Figma">
+                  <video class="banner-preview-video crop-preview-edge" src="assets/copy_click.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+                </div>
+                <div class="card-inner left-aligned">
+                  <h3 class="project-title" lang="en" dir="ltr">CopyClick</h3>
+                  <p class="project-tool" lang="en" dir="ltr">Figma</p>
+                </div>
+              </article>
+
+              <!-- Project 5 (Rotated in via Carousel): מתחברים -->
+              <article class="project-card is-hidden" data-index="4" tabindex="0" role="button" aria-pressed="false" aria-label="פרויקט 5 מתוך 5: מתחברים, פרוטוטייפ של אפליקציה, עוצב ב-Figma">
+                <a href="https://www.figma.com/proto/uub0LCagXPtCU7RZuBYQiJ/onboarding?node-id=770-5658&starting-point-node-id=770%3A5624&t=wa0NONko9mRB6pWZ-1" target="_blank" rel="noopener noreferrer" class="project-card-link" aria-label="פתיחת הפרויקט מתחברים ב-Figma בחלון חדש"></a>
+                <div class="project-banner has-image banner-mitchabrim">
+                  <img src="assets/project-mitchabrim.png" alt="מתחברים – פרוטוטייפ של אפליקציה להיכרויות ב-Figma">
+                </div>
+                <div class="card-inner center-aligned">
+                  <h3 class="project-title">מתחברים</h3>
+                  <p class="project-desc">פרוטוטייפ של אפליקצייה</p>
+                  <p class="project-tool" lang="en" dir="ltr">Figma</p>
+                </div>
+              </article>
+
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills-section">
-      <div class="container">
-        <div class="section-header animate-on-scroll">
-          <span class="section-subtitle">ארגז הכלים שלי</span>
-          <h2 class="section-title">כישורים והתמחויות</h2>
-        </div>
-        <div class="skills-grid">
-          <div class="skill-card animate-on-scroll">
-            <div class="skill-icon-wrapper">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-                <rect x="9" y="9" width="6" height="6"></rect>
-                <line x1="9" y1="1" x2="9" y2="4"></line>
-                <line x1="15" y1="1" x2="15" y2="4"></line>
-                <line x1="9" y1="20" x2="9" y2="23"></line>
-                <line x1="15" y1="20" x2="15" y2="23"></line>
-                <line x1="20" y1="9" x2="23" y2="9"></line>
-                <line x1="20" y1="15" x2="23" y2="15"></line>
-                <line x1="1" y1="9" x2="4" y2="9"></line>
-                <line x1="1" y1="15" x2="4" y2="15"></line>
-              </svg>
-            </div>
-            <h3>בינה מלאכותית (AI)</h3>
-            <p>שימוש מתקדם בכלי GenAI, Prompt Engineering, CodeX ו-Antigravity לפיתוח, ייעול תהליכים ולמידה אפקטיבית.
-            </p>
-          </div>
-          <div class="skill-card animate-on-scroll">
-            <div class="skill-icon-wrapper">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
-              </svg>
-            </div>
-            <h3>טכנולוגיות למידה</h3>
-            <p>פיתוח קורסים ויחידות למידה דיגיטליות ואינטראקטיביות בפלטפורמות Storyline ו-Genially, וניהול והטמעת מערכות
-              Moodle.</p>
-          </div>
-          <div class="skill-card animate-on-scroll">
-            <div class="skill-icon-wrapper">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                <polyline points="2 17 12 22 22 17"></polyline>
-                <polyline points="2 12 12 17 22 12"></polyline>
-              </svg>
-            </div>
-            <h3>עיצוב וחוויית משתמש</h3>
-            <p>אפיון מערכות ועיצוב ממשקי משתמש (UI/UX), לצד עבודה עם מגוון כלי אפיון ועיצוב, בהם Figma ו-Illustrator.</p>
-          </div>
-          <div class="skill-card animate-on-scroll">
-            <div class="skill-icon-wrapper">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 18 22 12 16 6"></polyline>
-                <polyline points="8 6 2 12 8 18"></polyline>
-              </svg>
-            </div>
-            <h3>פיתוח ותכנות</h3>
-            <p>ניסיון בפיתוח משחקי אנימציה אינטראקטיביים בסביבת Unity באמצעות <span dir="ltr">C#</span>, לצד עבודה עם Java ובסיסי נתונים באמצעות SQL.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio-section">
-      <div class="container">
-        <div class="section-header animate-on-scroll">
-          <span class="section-subtitle">עבודות נבחרות</span>
-          <h2 class="section-title">פרויקטים אחרונים</h2>
+          <!-- Left Arrow (in RTL, positioned on the left edge) -->
+          <button type="button" class="carousel-arrow arrow-left" id="nextBtn" aria-label="לפרויקט הבא" aria-controls="projectsTrack">
+            <svg viewBox="0 0 24 40" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <polyline points="19 6 5 20 19 34"></polyline>
+            </svg>
+          </button>
         </div>
 
-        <!-- Filter Controls -->
-        <div class="filter-controls animate-on-scroll" role="tablist" aria-label="סינון פרויקטים">
-          <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">הכל</button>
-          <button class="filter-btn" data-filter="mobile" role="tab" aria-selected="false">מובייל</button>
-          <button class="filter-btn" data-filter="web" role="tab" aria-selected="false">ווב</button>
+        <!-- Carousel Dots -->
+        <div class="carousel-dots" role="tablist" aria-label="בחירת פרויקט להצגה">
+          <button type="button" class="dot" role="tab" aria-selected="false" data-slide="0" aria-label="פרויקט 1: הטיסה הראשונה שלי"></button>
+          <button type="button" class="dot active" role="tab" aria-selected="true" data-slide="1" aria-label="פרויקט 2: יום בשוק"></button>
+          <button type="button" class="dot" role="tab" aria-selected="false" data-slide="2" aria-label="פרויקט 3: למידה זה שם המשחק"></button>
+          <button type="button" class="dot" role="tab" aria-selected="false" data-slide="3" aria-label="פרויקט 4: CopyClick"></button>
+          <button type="button" class="dot" role="tab" aria-selected="false" data-slide="4" aria-label="פרויקט 5: מתחברים"></button>
         </div>
+      </section>
 
-        <!-- Projects Grid -->
-        <div class="projects-grid">
-
-          <!-- Project 1 -->
-          <article class="project-card animate-on-scroll" data-category="web">
-            <div class="project-image-wrapper">
-              <img src="images/project1.png" alt="לומדת הטיסה הראשונה שלי - יחידת לימוד דיגיטלית אינטראקטיבית"
-                class="project-image" loading="lazy">
-              <div class="project-overlay">
-                <span class="btn btn-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </span>
-              </div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title"><a
-                  href="https://360.articulate.com/review/content/718f3872-4d9f-47a2-988c-d3a18cc1d208/review"
-                  class="project-link" target="_blank" rel="noopener noreferrer">לומדת הטיסה הראשונה שלי</a></h3>
-              <p class="project-description">
-                פיתוח ואפיון לומדה אינטראקטיבית חווייתית ללימוד יסודות הטיסה עבור ילדים. 
-                הפרויקט פותח ואופיין במסגרת קורס פיתוח יחידות דיגיטליות ב-Storyline.
-              </p>
-            </div>
-          </article>
-
-          <!-- Project 2: Genially Gamification -->
-          <article class="project-card animate-on-scroll" data-category="web">
-            <div class="project-image-wrapper">
-              <img src="images/project_genially.png"
-                alt="למידה זה שם המשחק - לומדה אינטראקטיבית בנושא למידה משחקית בפלטפורמת Genially" class="project-image"
-                loading="lazy">
-              <div class="project-overlay">
-                <span class="btn btn-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </span>
-              </div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title"><a href="https://view.genially.com/69f49f9d8a191b94110ef8bf"
-                  class="project-link" target="_blank" rel="noopener noreferrer">למידה זה שם המשחק</a></h3>
-              <p class="project-description">
-                פיתוח קורס אינטראקטיבי בנושא למידה מבוססת משחק.
-                <br>
-                פותח באמצעות Genially במסגרת הקורס הוראה מתוקשבת- תיאוריה ויישום.
-              </p>
-            </div>
-          </article>
-
-          <!-- Project 3: CopyClick Figma -->
-          <article class="project-card animate-on-scroll" data-category="web">
-            <div class="project-image-wrapper">
-              <img src="images/project_figma.png" alt="CopyClick - עיצוב אתר מיקרו-קופי ב-Figma" class="project-image"
-                loading="lazy">
-              <div class="project-overlay">
-                <span class="btn btn-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </span>
-              </div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title"><a
-                  href="https://www.figma.com/proto/z8AJugEPy6FzD2UMXb1seu/%D7%90%D7%AA%D7%A8-%D7%A7%D7%95%D7%A4%D7%99-%D7%A7%D7%9C%D7%99%D7%A7---%D7%A9%D7%99%D7%A8%D7%94-%D7%96%D7%A7%D7%94%D7%99%D7%99%D7%9D-%D7%91%D7%99%D7%95%D7%A8%D7%A7%D7%95%D7%91--%D7%91%D7%A8-%D7%9B%D7%94%D7%9F-%D7%95%D7%9C%D7%99%D7%A2%D7%93-%D7%A9%D7%90%D7%91%D7%99?node-id=1217-2465&starting-point-node-id=1217%3A2465&t=mtmF3NvAncsgPq4k-1"
-                  class="project-link" target="_blank" rel="noopener noreferrer">CopyClick - עיצוב אתר מיקרו-קופי</a>
-              </h3>
-              <p class="project-description">
-                פרוטוטייפ אינטראקטיבי שעוצב באמצעות Figma, אשר פותח במסגרת קורסי אפיון חוויית משתמש (UX), עיצוב ממשק משתמש (UI) והנגשת אתרים.
-              </p>
-            </div>
-          </article>
-
-          <!-- Project 4: Onboarding App -->
-          <article class="project-card animate-on-scroll" data-category="mobile">
-            <div class="project-image-wrapper">
-              <img src="images/project_onboarding.png" alt="מתחברים - עיצוב ממשק onboarding לאפליקציית מובייל"
-                class="project-image" loading="lazy">
-              <div class="project-overlay">
-                <span class="btn btn-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </span>
-              </div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title"><a
-                  href="https://www.figma.com/proto/uub0LCagXPtCU7RZuBYQiJ/onboarding?node-id=770-5658&starting-point-node-id=770%3A5624&t=wa0NONko9mRB6pWZ-1"
-                  class="project-link" target="_blank" rel="noopener noreferrer">מתחברים - אפליקציית מובייל</a></h3>
-              <p class="project-description">
-                עיצוב ואפיון ממשק משתמש (UI/UX) לאפליקציית "מתחברים", אשר עוצבה במסגרת קורס עיצוב גרפי לממשקים
-                אינטראקטיביים עם התמקדות בתהליך Onboarding אינטואיטיבי ומזמין.
-              </p>
-            </div>
-          </article>
-
-
-          <!-- Project 5: Yom BaShuk PDF -->
-          <article class="project-card animate-on-scroll" data-category="web">
-            <div class="project-image-wrapper">
-              <img src="images/project_yom_bashuk.jpg" alt="יום בשוק - מסמך אפיון מפורט למשחק לימודי אינטראקטיבי"
-                class="project-image" loading="lazy">
-              <div class="project-overlay">
-                <span class="btn btn-icon" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </span>
-              </div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title"><a href="docs/yom_bashuk_spec.pdf" class="project-link" target="_blank"
-                  rel="noopener noreferrer">יום בשוק - מסמך אפיון משחק</a></h3>
-              <p class="project-description">
-                אפיון מקיף למשחק לימודי אינטראקטיבי, הכולל תכנון חוויית משתמש ומכניקות משחק. נוצר במסגרת הקורס "סביבות למידה אינטראקטיביות".
-              </p>
-            </div>
-          </article>
-
-
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-      <div class="container contact-container">
-        <div class="contact-header animate-on-scroll">
-          <span class="section-subtitle">בואו נשתף פעולה</span>
-          <h2 class="section-title">מוכנים להתחיל את הפרויקט הבא?</h2>
-
-        </div>
-
-        <div class="contact-methods animate-on-scroll">
-          <a href="mailto:liadshaby@gmail.com" class="contact-card contact-card-email" aria-label="שלח אימייל אל liadshaby@gmail.com">
-            <div class="contact-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-            </div>
-            <span class="contact-value">liadshaby@gmail.com</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
+    </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="main-footer">
-    <div class="container footer-container">
-      <p class="footer-copy" style="width: 100%; text-align: center; margin: 0;">פורטפוליו - ליעד שאבי</p>
+  <!-- Footer Section -->
+  <footer id="footer-contact" class="footer" role="contentinfo">
+    <div class="container footer-content">
+      <h2 class="footer-title">בואו ניצור משהו מעניין</h2>
+      <a href="mailto:liadshaby@gmail.com" class="footer-email" aria-label="שליחת אימייל אל liadshaby@gmail.com">
+        <span class="email-text" lang="en" dir="ltr">liadshaby@gmail.com</span>
+        <span class="email-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <rect x="2" y="2" width="28" height="20" rx="3" />
+            <polyline points="2,3 16,14 30,3" />
+          </svg>
+        </span>
+      </a>
     </div>
   </footer>
 
-  <!-- JS Scripts -->
-  <script>
-// Register Service Worker for PWA
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js')
-      .then((reg) => console.log('Service Worker registered successfully:', reg.scope))
-      .catch((err) => console.error('Service Worker registration failed:', err));
-  });
-}
+  <!-- תפריט וכפתור נגישות לפי ת"י 5568 -->
+  <div class="a11y-widget" id="a11yWidget">
+    <button type="button" class="a11y-toggle" id="a11yToggle" aria-expanded="false" aria-controls="a11yPanel" aria-label="פתיחת תפריט נגישות" title="תפריט נגישות (ת״י 5568)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="4.5" r="2" fill="currentColor" stroke="none" />
+        <path d="M5 8.5 L19 8.5" />
+        <path d="M12 8.5 L12 14.5" />
+        <path d="M12 14.5 L9 20.5" />
+        <path d="M12 14.5 L15 20.5" />
+      </svg>
+    </button>
 
-document.addEventListener('DOMContentLoaded', () => {
-  
-  // ==========================================================================
-  // Mobile Menu Toggle with Hardware Back-Button Logic
-  // ==========================================================================
-  const menuToggle = document.querySelector('.menu-toggle');
-  const primaryNav = document.getElementById('primary-nav');
-  const navLinks = document.querySelectorAll('.nav-link');
+    <div class="a11y-panel" id="a11yPanel" role="dialog" aria-modal="false" aria-labelledby="a11yPanelTitle" hidden>
+      <div class="a11y-panel-header">
+        <h2 id="a11yPanelTitle" class="a11y-panel-title">כלי נגישות (ת״י 5568)</h2>
+        <button type="button" class="a11y-close" id="a11yClose" aria-label="סגירת תפריט נגישות">&times;</button>
+      </div>
+      <ul class="a11y-options" role="list">
+        <li>
+          <button type="button" class="a11y-btn" data-action="font-increase" aria-pressed="false">
+            <span>הגדלת טקסט</span>
+            <span aria-hidden="true">א+</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="a11y-btn" data-action="font-decrease" aria-pressed="false">
+            <span>הקטנת טקסט</span>
+            <span aria-hidden="true">א-</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="a11y-btn" data-action="high-contrast" aria-pressed="false">
+            <span>ניגודיות גבוהה (כהה)</span>
+            <span aria-hidden="true">◐</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="a11y-btn" data-action="grayscale" aria-pressed="false">
+            <span>גווני אפור</span>
+            <span aria-hidden="true">◑</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="a11y-btn" data-action="highlight-links" aria-pressed="false">
+            <span>הדגשת קישורים וכפתורים</span>
+            <span aria-hidden="true">🔗</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="a11y-btn" data-action="readable-font" aria-pressed="false">
+            <span>פונט קריא</span>
+            <span aria-hidden="true">Aa</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="a11y-btn" data-action="stop-animations" aria-pressed="false">
+            <span>עצירת אנימציות ותנועה</span>
+            <span aria-hidden="true">⏸</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="a11y-btn a11y-reset" data-action="reset">
+            <span>איפוס הגדרות נגישות</span>
+            <span aria-hidden="true">↺</span>
+          </button>
+        </li>
+      </ul>
+      <div class="a11y-statement-box">
+        <button type="button" class="a11y-statement-toggle" id="a11yStatementBtn" aria-expanded="false" aria-controls="a11yStatementContent">
+          הצהרת נגישות
+        </button>
+        <div id="a11yStatementContent" class="a11y-statement-content" hidden>
+          <p>אתר זה הותאם לדרישות תקן ישראלי ת״י 5568 לנגישות תכנים באינטרנט ברמת AA ולהנחיות WCAG 2.1. האתר תומך בניווט מקלדת מלא, קוראי מסך והתאמות תצוגה. לפניות בנושא נגישות: <a href="mailto:liadshaby@gmail.com">liadshaby@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  if (menuToggle && primaryNav) {
-    const openMenu = () => {
-      menuToggle.setAttribute('aria-expanded', 'true');
-      menuToggle.classList.add('open');
-      primaryNav.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      // Push state to history for back-button handling
-      history.pushState({ menuOpen: true }, '');
-    };
+  <dialog class="media-dialog" id="gameplayDialog" aria-labelledby="gameplayTitle">
+    <div class="media-dialog-header">
+      <h2 id="gameplayTitle">יום בשוק — מהלך משחק</h2>
+      <button type="button" class="media-close" data-close-dialog aria-label="סגירת הסרטון" autofocus>×</button>
+    </div>
+    <video id="gameplayVideo" controls playsinline preload="none" poster="assets/yom-bashuk/screenshot-01.jpg?v=20261116-2">
+      <source src="assets/yom-bashuk/gameplay.mp4?v=20261116-2" type="video/mp4">
+      הדפדפן אינו תומך בניגון הסרטון.
+    </video>
+    <p class="media-footer"><a href="assets/yom-bashuk/gameplay.mp4?v=20261116-2" target="_blank" rel="noopener">פתיחת הסרטון ישירות</a></p>
+  </dialog>
 
-    const closeMenu = () => {
-      if (!primaryNav.classList.contains('open')) return;
-      menuToggle.setAttribute('aria-expanded', 'false');
-      menuToggle.classList.remove('open');
-      primaryNav.classList.remove('open');
-      document.body.style.overflow = '';
-      
-      // If we closed the menu manually, remove the history entry
-      if (history.state && history.state.menuOpen) {
-        history.back();
-      }
-    };
+  <dialog class="media-dialog" id="galleryDialog" aria-labelledby="galleryTitle">
+    <div class="media-dialog-header">
+      <h2 id="galleryTitle">יום בשוק — גלריית תמונות</h2>
+      <button type="button" class="media-close" data-close-dialog aria-label="סגירת הגלריה" autofocus>×</button>
+    </div>
+    <div class="game-gallery">
+      <img id="galleryImage" class="gallery-image-cropped" src="assets/yom-bashuk/screenshot-01.jpg?v=20261116-2" alt="צילום מסך 1 מתוך 8 של המשחק יום בשוק">
+    </div>
+    <div class="gallery-navigation">
+      <button type="button" class="media-icon-button" id="galleryPrevious" dir="ltr" aria-label="התמונה הקודמת">›</button>
+      <span id="galleryStatus" aria-live="polite">תמונה 1 מתוך 8</span>
+      <button type="button" class="media-icon-button" id="galleryNext" dir="ltr" aria-label="התמונה הבאה">‹</button>
+    </div>
+  </dialog>
 
-    menuToggle.addEventListener('click', () => {
-      const isOpen = primaryNav.classList.contains('open');
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-
-    // Close menu when a link is clicked
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        closeMenu();
-      });
-    });
-
-    // Listen for back button press
-    window.addEventListener('popstate', (event) => {
-      const isCurrentlyOpen = primaryNav.classList.contains('open');
-      // If menu is open, close it (the popstate has already popped the state)
-      if (isCurrentlyOpen) {
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.classList.remove('open');
-        primaryNav.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    });
-  }
-
-  // ==========================================================================
-  // Scroll Animations (Intersection Observer)
-  // ==========================================================================
-  const animatedElements = document.querySelectorAll('.animate-on-scroll');
-
-  const observerOptions = {
-    root: null, // viewport
-    threshold: 0.1, // trigger when 10% of element is visible
-    rootMargin: '0px 0px -50px 0px' // offset slightly
-  };
-
-  const scrollObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // stop observing once visible
-      }
-    });
-  }, observerOptions);
-
-  animatedElements.forEach(element => {
-    scrollObserver.observe(element);
-  });
-
-  // ==========================================================================
-  // Portfolio Filtering Logic
-  // ==========================================================================
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const filterValue = button.getAttribute('data-filter');
-
-      // Update active button classes
-      filterButtons.forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      button.classList.add('active');
-      button.setAttribute('aria-selected', 'true');
-
-      // Filter project cards
-      projectCards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category');
-
-        if (filterValue === 'all' || cardCategory === filterValue) {
-          card.classList.remove('hidden');
-          // Re-trigger scroll animation check in case item is visible
-          setTimeout(() => {
-            card.classList.add('visible');
-          }, 50);
-        } else {
-          card.classList.add('hidden');
-          card.classList.remove('visible');
-        }
-      });
-    });
-  });
-
-  // ==========================================================================
-  // Accessibility & Keyboard navigation details
-  // ==========================================================================
-  // Close menu on ESC key press
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && primaryNav.classList.contains('open')) {
-      menuToggle.click();
-      menuToggle.focus();
-    }
-  });
-});
-
-</script>
+  <script src="script.js?v=20261116-10"></script>
 </body>
-
 </html>
